@@ -14,8 +14,11 @@ html.fs-1{font-size:112.5%}html.fs-2{font-size:125%}html.fs-3{font-size:150%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
 html.easy body{line-height:1.9;letter-spacing:.015em;word-spacing:.06em}
 html.easy p,html.easy li{max-width:68ch}
-a{color:var(--teal)}
+a{color:var(--teal);text-decoration:underline}
 [data-theme="contrast"] a{color:#ffff00}
+html.altfont body{font-family:"Comic Sans MS","Trebuchet MS",Verdana,system-ui,sans-serif}
+html.easy p,html.easy li{margin-bottom:1.05em}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:-999px;top:0;background:var(--card);color:var(--ink);padding:10px 14px;border:2px solid var(--teal);z-index:50}
 .skip:focus{left:8px}
 header,nav,main,footer{max-width:1060px;margin:0 auto;padding:0 16px}
@@ -72,12 +75,15 @@ section[hidden]{display:none}
     <button id="fs-2" aria-pressed="false" aria-label="Much larger text">A++</button>
     <button id="fs-3" aria-pressed="false" data-i>Large print</button></div>
   <div class="grp"><button id="easy" aria-pressed="false" data-i>Easier reading</button>
-    <button id="txt" data-i>Download text version (screen readers and Braille)</button></div>
+    <button id="altfont" aria-pressed="false" data-i>Alternative font</button>
+    <button id="txt" data-i>Download text version (screen readers and Braille)</button>
+    <button id="docx" data-i>Download Word version</button></div>
 </div>
 </header>
 <nav aria-label="Sections">
 <div class="tabs" id="tabs"></div>
 </nav>
+<div id="live" class="sr-only" aria-live="polite"></div>
 <main id="main">
 <section id="v-overview"><h2 tabindex="-1"></h2><div class="body"></div></section>
 <section id="v-rep" hidden><h2 tabindex="-1"></h2><div class="body"></div></section>
@@ -94,7 +100,7 @@ section[hidden]{display:none}
 <section id="v-act" hidden><h2 tabindex="-1"></h2><div class="body"></div></section>
 <section id="v-sources" hidden><h2 tabindex="-1"></h2><div class="body"></div></section>
 </main>
-<footer><span data-i>Independent analytical page assembled from published sources. Not a Government of Canada site.</span> Build 2026-07-18b.</footer>
+<footer><span data-i>Independent analytical page assembled from published sources. Not a Government of Canada site.</span> Build 2026-07-18c.</footer>
 <script>
 var Q23LIST=["Q24","Q25","Q50","Q49","Q52","Q72","Q51","Q44c","Q44d","Q44e"];
 var Q16LIST=["Q01","Q04","Q05","Q12","Q22","Q23","Q47","Q48","Q53","Q28","Q43","Q45","Q58","Q65","Q24","Q25","Q49","Q50","Q52","Q72","Q51","Q44c","Q44d","Q44e","Q87","Q88","Q76","Q77","Q78","Q79","Q81","Q34","Q41","Q54","Q55"];
@@ -179,18 +185,18 @@ var INX = {"order": ["pwd_base", "pwd_rac", "pwd_ind", "pwd_wom", "pwd_exec", "l
 var REP={now:"9.0",wfa:"12.0"};
 var HIRES=null;
 
-var WFA ={w:54.9,i:4.0,d:12.0,v:22.7};
-var LMA ={w:48.3,i:4.3,d:12.6,v:24.9};
-var CPA ={n:266935,w:56.8,i:5.5,d:9.0,v:23.9,black:5.1};
-var EX ={n:7926,w:55.9,i:5.6,d:10.9,v:17.3,black:3.2,wfa:{w:41.8,i:3.9,d:5.3,v:15.6}};
-var YEARS =[2018,2019,2020,2021,2022,2023,2024,2025];
-var TREND ={w:[54.8,54.8,55.0,55.6,56.0,56.6,56.9,56.8],i:[5.1,5.1,5.1,5.2,5.2,5.3,5.3,5.5],
+var WFA = {w:54.9,i:4.0,d:"12.0",v:22.7};
+var LMA = {w:48.3,i:4.3,d:12.6,v:24.9};
+var CPA = {n:266935,w:56.8,i:5.5,d:"9.0",v:23.9,black:5.1};
+var EX = {n:7926,w:55.9,i:5.6,d:10.9,v:17.3,black:3.2,wfa:{w:41.8,i:3.9,d:5.3,v:15.6}};
+var YEARS = [2018,2019,2020,2021,2022,2023,2024,2025];
+var TREND = {w:[54.8,54.8,55.0,55.6,56.0,56.6,56.9,56.8],i:[5.1,5.1,5.1,5.2,5.2,5.3,5.3,5.5],
  d:[5.3,5.2,5.2,5.6,6.2,6.9,7.9,9.0],v:[15.7,16.7,17.8,18.9,20.2,21.7,22.9,23.9],black:[2.9,3.2,3.5,3.8,4.2,4.6,5.0,5.1]};
-var HIST ={years:[1998,2000,2005,2010,2015,2020,2025],
+var HIST = {years:[1998,2000,2005,2010,2015,2020,2025],
  w:[50.5,51.4,53.5,54.8,54.3,55.0,56.8], i:[2.7,3.3,4.2,4.6,5.1,5.1,5.5],
  d:[3.9,4.7,5.8,5.7,5.6,5.2,9.0], v:[5.1,5.5,8.1,10.7,13.8,17.8,23.9]};
-var FY =["2016-17","2017-18","2018-19","2019-20","2020-21","2021-22","2022-23","2023-24","2024-25"];
-var FLOWS ={
+var FY = ["2016-17","2017-18","2018-19","2019-20","2020-21","2021-22","2022-23","2023-24","2024-25"];
+var FLOWS = {
  hires:{title:"Hires: each group's share of all hires into the public service",totals:[16081,19249,23334,24901,24229,28929,33361,29033,19720],
   w:[57.7,58.7,56.5,58.3,60.2,60.1,61.1,60.4,57.2], i:[4.4,4.0,4.1,4.0,3.8,4.2,4.4,4.3,4.4],
   d:[3.7,3.6,3.7,3.9,4.3,5.5,6.9,8.2,8.6], v:[17.9,17.7,19.3,21.3,21.2,23.2,26.9,26.8,27.2],
@@ -204,11 +210,11 @@ var FLOWS ={
   d:[7.2,7.7,6.6,7.1,6.8,6.6,6.9,7.9,8.7], v:[11.9,10.1,9.8,10.5,10.9,12.2,14.2,15.7,16.6],
   black:[2.8,2.0,1.8,2.1,2.4,2.8,3.4,3.8,4.0]}
 };
-var FLOW25 ={w:{rep:56.8,h:57.2,p:62.6,s:57.5},i:{rep:5.5,h:4.4,p:5.8,s:5.9},d:{rep:9.0,h:8.6,p:9.3,s:8.7},
+var FLOW25 = {w:{rep:56.8,h:57.2,p:62.6,s:57.5},i:{rep:5.5,h:4.4,p:5.8,s:5.9},d:{rep:"9.0",h:8.6,p:9.3,s:8.7},
  v:{rep:23.9,h:27.2,p:25.4,s:16.6},black:{rep:5.1,h:6.4,p:5.8,s:4.0}};
-var EXLEV ={w:[58.8,52.6,53.1,56.6,51.4,55.9],i:[6.1,5.1,5.2,5.2,5.6,5.6],d:[11.3,10.5,10.3,8.0,14.8,10.9],
+var EXLEV = {w:[58.8,52.6,53.1,56.6,51.4,55.9],i:[6.1,5.1,5.2,5.2,5.6,5.6],d:[11.3,10.5,10.3,8.0,14.8,10.9],
  v:[18.1,17.3,15.1,16.8,16.2,17.3],black:[3.3,3.2,2.9,null,null,3.2]};
-var REGIONS =[
+var REGIONS = [
  ["Newfoundland and Labrador",4312,52.2,10.6,11.3,6.1,0.8],["Prince Edward Island",2519,63.3,3.1,11.2,5.1,0.6],
  ["Nova Scotia",11187,49.2,6.6,10.7,8.6,2.5],["New Brunswick",11385,61.3,3.9,8.3,5.2,1.7],
  ["Quebec (without the NCR)",28751,55.8,2.8,6.4,20.0,6.7],["National Capital Region",123178,57.3,4.4,10.0,26.2,6.2],
@@ -217,22 +223,18 @@ var REGIONS =[
  ["British Columbia",21297,52.1,5.8,8.1,31.1,1.1],["Yukon",385,63.4,12.7,6.5,14.0,null],
  ["Northwest Territories",488,58.0,16.2,7.4,17.6,3.3],["Nunavut",300,60.7,53.0,4.7,11.0,null],
  ["Outside Canada",1552,51.9,4.6,4.4,26.9,5.3]];
-var LANG ={fr:{all:30.2,w:31.2,i:24.8,d:25.2,v:22.8,black:48.5}};
-var INTER =[["Women",null,6.0,9.6,24.1],["Indigenous Peoples",62.1,null,16.1,10.9],
+var LANG = {fr:{all:30.2,w:31.2,i:24.8,d:25.2,v:22.8,black:48.5}};
+var INTER = [["Women",null,6.0,9.6,24.1],["Indigenous Peoples",62.1,null,16.1,10.9],
  ["persons with disabilities",60.4,9.8,null,19.9],["racialized employees",57.3,3.1,7.5,null],["Black employees",57.3,1.5,5.8,null]];
-var BANDS6 =["Under $50K","$50K to $74,999","$75K to $99,999","$100K to $124,999","$125K to $149,999","$150K and over"];
-var SAL6 ={all:[1.1,27.9,29.5,24.2,12.5,4.8],w:[1.4,32.8,28.8,22.4,10.5,4.2],i:[1.1,30.1,31.8,23.9,9.3,3.8],
+var BANDS6 = ["Under $50K","$50K to $74,999","$75K to $99,999","$100K to $124,999","$125K to $149,999","$150K and over"];
+var SAL6 = {all:[1.1,27.9,29.5,24.2,12.5,4.8],w:[1.4,32.8,28.8,22.4,10.5,4.2],i:[1.1,30.1,31.8,23.9,9.3,3.8],
  d:[1.2,29.1,28.3,23.7,12.0,5.7],v:[0.9,31.8,29.5,22.6,11.5,3.7],black:[0.9,40.8,29.8,17.9,8.1,2.5]};
-var SALN ={all:[3030,74453,78650,64605,33372,12825]};
-var WITHIN6 ={w:[68.5,66.9,55.4,52.4,47.5,49.6],i:[5.5,6.0,6.0,5.5,4.1,4.4],d:[9.3,9.4,8.7,8.9,8.7,10.7],v:[19.6,27.2,23.9,22.3,21.9,18.4]};
-let wbKey="w";
-var AGE =[["All employees",11.9,31.3,1],["Women",12.6,29.4,0],["Indigenous Peoples",10.9,34.7,0],["Persons with disabilities",12.2,34.1,0],["Racialized (visible minority)",15.5,25.2,0],["Black",12.8,25.7,0]];
-$("#ageBody").innerHTML=AGE.map(r=>`<tr><td>${r[0]}${r[3]?` <span style="font-size:11px;color:var(--ink-soft)">(computed from counts)</span>`:""}</td><td class="num">${r[1].toFixed(1)}%</td><td class="num">${r[2].toFixed(1)}%</td></tr>`).join("");
-var CAT =[["Executives",7926,55.9,5.6,10.9,17.3],["Scientific and Professional",53880,56.8,4.0,9.5,27.4],["Administrative and Foreign Service",141687,62.9,5.6,9.5,25.7],["Technical",14568,29.6,5.9,6.9,13.2],["Administrative Support",18658,74.0,6.5,10.1,24.7],["Operational",30216,30.5,7.2,6.2,15.3]];
-$("#catBody").innerHTML=CAT.map(r=>`<tr><td>${r[0]}</td><td class="num">${fmt(r[1])}</td>`+[2,3,4,5].map(c=>`<td class="num">${r[c].toFixed(1)}%</td>`).join("")+"</tr>").join("");
-var BIL =[["All employees",94.4],["Women",94.9],["Indigenous Peoples",93.2],["Persons with disabilities",93.9],["Racialized (visible minority)",93.8],["Black",95.6]];
-$("#langBars").insertAdjacentHTML("afterend",`<p style="font-size:13px;margin-top:12px"><strong>Of those in bilingual positions, share meeting the language requirements:</strong> ${BIL.map(b=>`${b[0]} ${b[1]}%`).join(" &middot; ")}. Black employees have the highest rate of meeting bilingual requirements, which makes the second-language training access gap above even harder to defend.</p>`);
-var DEPTS =[
+var SALN = {all:[3030,74453,78650,64605,33372,12825]};
+var WITHIN6 = {w:[68.5,66.9,55.4,52.4,47.5,49.6],i:[5.5,6.0,6.0,5.5,4.1,4.4],d:[9.3,9.4,8.7,8.9,8.7,10.7],v:[19.6,27.2,23.9,22.3,21.9,18.4]};
+var AGE = [["All employees",11.9,31.3,1],["Women",12.6,29.4,0],["Indigenous Peoples",10.9,34.7,0],["Persons with disabilities",12.2,34.1,0],["Racialized (visible minority)",15.5,25.2,0],["Black",12.8,25.7,0]];
+var CAT = [["Executives",7926,55.9,5.6,10.9,17.3],["Scientific and Professional",53880,56.8,4.0,9.5,27.4],["Administrative and Foreign Service",141687,62.9,5.6,9.5,25.7],["Technical",14568,29.6,5.9,6.9,13.2],["Administrative Support",18658,74.0,6.5,10.1,24.7],["Operational",30216,30.5,7.2,6.2,15.3]];
+var BIL = [["All employees",94.4],["Women",94.9],["Indigenous Peoples",93.2],["Persons with disabilities",93.9],["Racialized (visible minority)",93.8],["Black",95.6]];
+var DEPTS = [
 ["Employment and Social Development Canada",38334,67.2,4.2,8.5,31.2,""],
 ["National Defence",28241,43.0,3.7,7.3,13.1,"Civilian staff only; Canadian Armed Forces members are not included."],
 ["Correctional Service Canada",18660,51.4,10.6,7.4,15.5,""],
@@ -305,7 +307,7 @@ var DEPTS =[
 ["Secretariat of the National Security and Intelligence Committee of Parliamentarians",8,null,0.0,0.0,0.0,""],
 ["Law Commission of Canada",5,null,0.0,0.0,null,""]
 ];
-var OCC =[
+var OCC = [
  ["PA: Program and Administrative Services",115828,72.3,6.3,9.9,24.5,6.6],
  ["EC: Economics and Social Science Services",26649,60.4,4.5,11.4,29.8,5.5],
  ["IT: Information Technology",21589,22.7,3.7,8.4,29.7,5.3],
@@ -342,7 +344,7 @@ function nf(n){return n==null?"":n.toLocaleString(lang==="fr"?"fr-CA":"en-CA");}
 
 
 
-function fmt1(v){return v==null?"supp.":(lang==="fr"?(String(v).replace(".",",")+"\u00a0%"):(v+"%"));}
+function fmt1(v){if(v==null)return "supp.";var t=(typeof v==="number")?v.toFixed(1):String(v);return lang==="fr"?(t.replace(".",",")+"\u00a0%"):(t+"%");}
 function srcTB(){return '<p class="note">'+L("Source: Treasury Board of Canada Secretariat, Employment Equity Data Bank and annual employment equity reporting, core public administration, as at March 31, 2025 unless noted. Suppressed values stay suppressed (supp.).","Source\u00a0: Secr\u00e9tariat du Conseil du Tr\u00e9sor du Canada, Banque de donn\u00e9es sur l\u2019\u00e9quit\u00e9 en emploi et rapports annuels sur l\u2019\u00e9quit\u00e9 en emploi, administration publique centrale, au 31 mars 2025 sauf indication contraire. Les valeurs supprim\u00e9es restent supprim\u00e9es (supp.).")+'</p>';}
 function wrapT(cap,head,rows){return '<div class="wrap" tabindex="0" role="group" aria-label="'+L("Scrollable table","Tableau d\u00e9filant")+'"><table><caption>'+cap+'</caption><thead><tr>'+head+'</tr></thead><tbody>'+rows+'</tbody></table></div>';}
 function rRep(){
@@ -460,7 +462,8 @@ function txtExport(){var parts=["PERSONS WITH DISABILITIES IN THE FEDERAL PUBLIC
  var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=lang==="fr"?"personnes-handicap-fonction-publique.txt":"persons-with-disabilities-public-service.txt";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},400);}
 
 
-var I18N={"Skip to main content":"Passer au contenu principal","Persons with disabilities in the federal public service":"Les personnes en situation de handicap dans la fonction publique f\u00e9d\u00e9rale","An accessibility-first data page, built from published Government of Canada figures. Guided by the principle of the public service accessibility strategy: Nothing without us.":"Une page de donn\u00e9es con\u00e7ue selon l\u2019accessibilit\u00e9 d\u2019abord, \u00e0 partir de chiffres publi\u00e9s du gouvernement du Canada. Guid\u00e9e par le principe de la strat\u00e9gie sur l\u2019accessibilit\u00e9 de la fonction publique\u00a0: Rien sans nous.","Theme":"Th\u00e8me","Light":"Clair","Dark":"Sombre","High contrast":"Contraste \u00e9lev\u00e9","Text size":"Taille du texte","Large print":"Gros caract\u00e8res","Easier reading":"Lecture facilit\u00e9e","Download text version (screen readers and Braille)":"T\u00e9l\u00e9charger la version texte (lecteurs d\u2019\u00e9cran et braille)","Independent analytical page assembled from published sources. Not a Government of Canada site.":"Page d\u2019analyse ind\u00e9pendante assembl\u00e9e \u00e0 partir de sources publi\u00e9es. Ce n\u2019est pas un site du gouvernement du Canada."};
+function docExport(){var parts=[];SECS.forEach(function(sc){var el=document.querySelector("#"+sc[0]+" .body");var t=(lang==="fr"?sc[1].fr:sc[1].en);parts.push("<h2>"+t+"</h2>");stripTags(el?el.innerHTML:"").split("\n").forEach(function(ln){ln=ln.replace(/\t+/g," | ").trim();if(ln)parts.push("<p>"+ln.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</p>");});});var title=(lang==="fr")?"Personnes en situation de handicap dans la fonction publique":"Persons with disabilities in the public service";docBlob(title,"<h1>"+title+"</h1>"+parts.join(""));}
+var I18N={"Skip to main content":"Passer au contenu principal","Persons with disabilities in the federal public service":"Les personnes en situation de handicap dans la fonction publique f\u00e9d\u00e9rale","An accessibility-first data page, built from published Government of Canada figures. Guided by the principle of the public service accessibility strategy: Nothing without us.":"Une page de donn\u00e9es con\u00e7ue selon l\u2019accessibilit\u00e9 d\u2019abord, \u00e0 partir de chiffres publi\u00e9s du gouvernement du Canada. Guid\u00e9e par le principe de la strat\u00e9gie sur l\u2019accessibilit\u00e9 de la fonction publique\u00a0: Rien sans nous.","Theme":"Th\u00e8me","Light":"Clair","Dark":"Sombre","High contrast":"Contraste \u00e9lev\u00e9","Text size":"Taille du texte","Large print":"Gros caract\u00e8res","Easier reading":"Lecture facilit\u00e9e","Download text version (screen readers and Braille)":"T\u00e9l\u00e9charger la version texte (lecteurs d\u2019\u00e9cran et braille)","Independent analytical page assembled from published sources. Not a Government of Canada site.":"Page d\u2019analyse ind\u00e9pendante assembl\u00e9e \u00e0 partir de sources publi\u00e9es. Ce n\u2019est pas un site du gouvernement du Canada.","Alternative font":"Police alternative","Download Word version":"T\u00e9l\u00e9charger la version Word"};
 function applyI18N(){document.documentElement.lang=(lang==="fr")?"fr-CA":"en-CA";
  document.title=(lang==="fr")?"Personnes en situation de handicap dans la fonction publique / Persons with disabilities in the public service":"Persons with disabilities in the public service / Personnes en situation de handicap dans la fonction publique";
  document.querySelectorAll("[data-i]").forEach(function(el){if(!el.dataset.en)el.dataset.en=el.textContent;el.textContent=(lang==="fr")?(I18N[el.dataset.en]||el.dataset.en):el.dataset.en;});
@@ -475,7 +478,7 @@ function renderSec(id){var sec=document.getElementById(id);sec.querySelector("h2
 function renderAll(){applyI18N();renderTabs();SECS.forEach(function(s){renderSec(s[0]);});}
 function show(id,focus){cur=id;SECS.forEach(function(s){document.getElementById(s[0]).hidden=(s[0]!==id);});
  document.querySelectorAll("#tabs button").forEach(function(b){b.setAttribute("aria-current",b.dataset.v===id?"true":"false");});
- if(focus){var h=document.querySelector("#"+id+" h2");if(h)h.focus();}}
+ var lv=document.getElementById("live");if(lv){for(var i=0;i<SECS.length;i++)if(SECS[i][0]===id)lv.textContent=(lang==="fr"?SECS[i][1].fr:SECS[i][1].en);}if(focus){var h=document.querySelector("#"+id+" h2");if(h)h.focus();}}
 function press(groupIds,onId){groupIds.forEach(function(g){var el=document.getElementById(g);if(el)el.setAttribute("aria-pressed",g===onId?"true":"false");});}
 document.getElementById("btn-en").addEventListener("click",function(){lang="en";press(["btn-en","btn-fr"],"btn-en");renderAll();show(cur,false);});
 document.getElementById("btn-fr").addEventListener("click",function(){lang="fr";press(["btn-en","btn-fr"],"btn-fr");renderAll();show(cur,false);});
@@ -483,6 +486,9 @@ document.getElementById("btn-fr").addEventListener("click",function(){lang="fr";
 [0,1,2,3].forEach(function(i){document.getElementById("fs-"+i).addEventListener("click",function(){document.documentElement.className=document.documentElement.className.replace(/fs-\d/,"fs-"+i);press(["fs-0","fs-1","fs-2","fs-3"],"fs-"+i);});});
 document.getElementById("easy").addEventListener("click",function(){var on=document.documentElement.classList.toggle("easy");this.setAttribute("aria-pressed",on?"true":"false");});
 document.getElementById("txt").addEventListener("click",txtExport);
+document.getElementById("altfont").addEventListener("click",function(){var on=document.documentElement.classList.toggle("altfont");this.setAttribute("aria-pressed",on?"true":"false");});
+document.getElementById("docx").addEventListener("click",docExport);
+try{if(typeof matchMedia==="function"&&matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");press(["th-light","th-dark","th-contrast"],"th-dark");}}catch(e){}
 renderAll();show("v-overview",false);
 
 </script>
