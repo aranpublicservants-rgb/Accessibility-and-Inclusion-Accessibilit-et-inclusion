@@ -127,7 +127,7 @@ other:{en:"Do not assume that you must pursue a grievance that is not reasonably
 function syncLangLinks(l){document.querySelectorAll('a[href]').forEach(function(a){var v=a.getAttribute('href');if(/^(?:index|evidence|accessibility|get-help)\.html(?:\?lang=(?:en|fr))?$/.test(v)){a.setAttribute('href',v.split('?')[0]+(l==="fr"?"?lang=fr":""))}});var u=new URL(location.href);if(l==="fr")u.searchParams.set("lang","fr");else u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+u.search+u.hash)}
 function updateAdvice(){document.getElementById("stageResult").textContent=notes[document.getElementById("stage").value][lang]}
 function setLang(l){lang=l;document.documentElement.lang=l;document.title=l==="fr"?"Adaptation au travail : droits et démarches":"Workplace accommodation: your rights and next steps";document.querySelectorAll("[data-en][data-fr]").forEach(function(e){e.textContent=e.getAttribute("data-"+l)});document.getElementById("en").setAttribute("aria-pressed",String(l==="en"));document.getElementById("fr").setAttribute("aria-pressed",String(l==="fr"));syncLangLinks(l);updateAdvice()}
-document.getElementById("en").onclick=function(){setLang("en")};document.getElementById("fr").onclick=function(){setLang("fr")};document.getElementById("stage").addEventListener("change",updateAdvice);if(new URLSearchParams(location.search).get("lang")==="fr")setLang("fr");else updateAdvice();
+document.getElementById("en").onclick=function(){setLang("en")};document.getElementById("fr").onclick=function(){setLang("fr")};document.getElementById("stage").addEventListener("change",updateAdvice);if(new URLSearchParams(location.search).get("lang")==="fr")setLang("fr");else setLang("en");
 })();
 </script>
 </body></html>
