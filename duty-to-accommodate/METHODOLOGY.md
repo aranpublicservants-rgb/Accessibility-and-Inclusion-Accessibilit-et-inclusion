@@ -64,3 +64,13 @@ Median days to an effective accommodation; interim measure use; full vs partial 
 
 ## Update method
 Replace `data.csv` and refresh the corresponding embedded dataset in `index.html` together. Revalidate all plan links, the national PSES denominator, question wording, publication years, and audit caveats. An automated ingestion process would require review controls and access to newly released public datasets; it is **not** currently enabled.
+
+## November 11, 2026 supplemental research
+
+The separately published `additional-evidence-2026.csv` now has **109 entries**: 84 marked verified by the original research compiler, 10 newly checked against primary public sources, 14 research leads not yet fully verified, and one searched-for dashboard not found. The bilingual summaries reside in `evidence-fr.json`; all 109 entries have French summaries.
+
+New primary evidence includes ESDC's 2024 workforce survey (51% versus 21% reporting confusing or delayed accommodations among employees with/without disabilities), ESDC's 2025 disability-network survey (25% comfortable discussing needs among 414 respondents), Canadian Heritage's 196 handled/121 completed requests in January–October 2024, PPSC's 49-request employee survey status breakdown, and ESDC's published 19% figure for 2024 PSES accommodation stress to a very large extent. The source catalogue provides individual URLs and caveats.
+
+PSES questions Q44d and Q44e (career barriers), and Q73o and Q73p (stress from accessibility and accommodation) are **not yet loaded across all 92 named organizations** into the main CSV. Their existence and public sources are listed, not invented organization values. Q73o and Q73p are new 2024 items and summary calculations changed for question 73 compared with 2022: do not build misleading trend comparisons. See the [official PSES concordance](https://www.canada.ca/en/treasury-board-secretariat/services/innovation/public-service-employee-survey/2024-25/2024-25-public-service-employee-survey-question-number-concordance.html).
+
+See [accessibility review and limitations](ACCESSIBILITY-REVIEW.md) and the [plain-language accessibility statement](accessibility.html).
