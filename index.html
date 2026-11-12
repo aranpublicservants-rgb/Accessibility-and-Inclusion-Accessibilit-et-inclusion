@@ -165,6 +165,7 @@ header,nav,main,footer{width:100%;box-sizing:border-box}
 }
 @media (forced-colors:active){#topBtn{forced-color-adjust:auto}}
 </style>
+<link rel="canonical" href="https://aranpublicservants-rgb.github.io/Accessibility-and-Inclusion-Accessibilit-et-inclusion/">
 </head>
 <body id="top">
 <a class="skip" href="#main"><span class="en">Skip to main content</span><span class="fr" lang="fr-CA">Passer au contenu principal</span></a>
@@ -435,7 +436,9 @@ var drH=$("drH");if(drH)drH.addEventListener("click",dreq);
 both("interSel").forEach(function(sel,k){sel.addEventListener("change",function(){var scope=document.querySelector("#intersections .body."+(k?"fr":"en"));if(!scope)return;scope.querySelectorAll(".ixt").forEach(function(d){d.hidden=(d.getAttribute("data-set")!==sel.value);});live(FR?"Comparaison mise \u00e0 jour":"Comparison updated");});});
 
 // tool downloads
-function docBlob(title,body){var html='<html><head><meta charset="utf-8"><title>'+title+'</title></head><body style="font-family:Cambria,serif;font-size:12pt">'+body+'</body></html>';
+function docBlob(title,body){var html='<html><head><meta charset="utf-8"><title>'+title+'</title></head><body style="font-family:Cambria,serif;font-size:12pt">'+body+'
+<aside id="gc-equity-related" aria-label="Related federal public service research" style="max-width:1100px;margin:2.4rem auto;padding:1.1rem 1.3rem;border-top:1px solid #96aaa5;line-height:1.55;font-family:system-ui,sans-serif;font-size:.94rem"><strong>Related public-service-wide research · Recherche connexe pour la fonction publique</strong><p style="margin:.4rem 0"><a href="https://aranpublicservants-rgb.github.io/GC-Equity-Equite-GC/">GC Equity / Équité-GC</a> · <a href="https://aranpublicservants-rgb.github.io/GC-Equity-Equite-GC/organizations.html">Federal organization directory / Répertoire des organismes fédéraux</a></p></aside>
+</body></html>';
  var b=new Blob(["\ufeff",html],{type:"application/msword"});var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=title.replace(/[^A-Za-z0-9\u00c0-\u017f -]/g,"").slice(0,60)+".doc";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},400);}
 document.addEventListener("click",function(ev){var t=ev.target&&ev.target.closest?ev.target.closest(".tooldl"):null; if(!t) return;
  var det=t.closest("details"); if(!det) return;
