@@ -56,3 +56,9 @@ New source entries include ESDC's 2024 accessibility survey and 2025 disability-
 Questions 44d, 44e, 73o and 73p are flagged as **published questions not yet fully integrated** into the 92-organization comparison CSV. No fabricated cross-organization values were inserted. PSES summary groupings changed, and Q73o/Q73p are new in 2024; do not compare unmatched years.
 
 *This review is a source and code check, not a conformance certificate.*
+
+## November 12, 2026 layout simplification
+
+The main DTA page has exactly two task-oriented sections: public evidence and employee accommodation steps. The homepage offers two same-page anchors, one for each. `site.css` and `site.js` implement a responsive layout and a bilingual organization comparison without paid services or tracking. The old standalone `get-help.html` points to the employee section instead of duplicating the general employee recourse portal. The 92-organization comparison and 109-source evidence library remain available.
+
+**Static checks** performed after the redesign: equal counts of English/French text bindings, one H1, two main sections, no duplicate IDs, no broken same-page anchors, JavaScript syntax valid, and the CSV parser returned 92 organizations plus two aggregates. This is not a browser or assistive-technology conformance test. Manual screen-reader, voice, keyboard, zoom, print, and user tests are still needed before claiming full accessibility.
