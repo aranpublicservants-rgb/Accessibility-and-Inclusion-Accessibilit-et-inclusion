@@ -1,3 +1,17 @@
+# Current site structure — November 12, 2026
+
+The DTA site was redesigned as **one plain-language page with two main sections**: (1) evidence on employee experiences, federal reports, organization comparisons and promising accommodation practices; and (2) step-by-step instructions for requesting workplace accommodation, documenting decisions, privacy, temporary measures and practical follow-up if measures are delayed or ineffective. The landing page has two anchor links into these sections. The separate detailed `evidence.html` research library remains available as a supplementary resource.
+
+**This note supersedes historical references below to a 19-route recourse catalogue as the central DTA website experience.** DTA employee guidance starts with the manager or authorized accommodation service and follows the federal five-stage process, not with an ombuds or tribunal. The old `get-help.html` address now redirects to the employee guidance area, so existing bookmarked links still take users to relevant content. The broader general employee recourse project remains conceptually separate.
+
+The DTA legal duty is **not limited to disability**. The federal Human Rights Act protects 13 grounds. The organization-level research focuses heavily on disability because the available matched PSES and other accessibility evidence is concentrated there; it does not define the full legal scope. The [CHRC's 2026 workplace accommodation guide](https://www.chrc-ccdp.gc.ca/resources/publications/workplace-accommodation-guide) and [Treasury Board's official manager process](https://www.canada.ca/en/government/publicservice/wellness-inclusion-diversity-public-service/diversity-inclusion-public-service/working-government-canada-duty-accommodate-right-non-discrimination/duty-accommodate-general-process-managers.html) anchor the employee steps.
+
+Data remain sourced from `data.csv` (92 organizations plus two aggregates); `additional-evidence-2026.csv` (109 research entries); and `evidence-fr.json` (109 French summaries). The main page loads `data.csv` using local `site.js` and `site.css`. It does not send accommodation details to a server. A built-in sample request can be copied and edited locally, but cannot file a formal request on the user's behalf.
+
+**Known methodological limitations:** a 2024 PSES survey cannot be causally attributed to a 2025–2026 accessibility plan; administrative case closure is not time to effective accommodation; not all survey questions use the same denominators; and disparities do not independently prove discrimination or legal non-compliance. No live user testing or formal WCAG 2.2 AA certification has been completed.
+
+---
+
 # Duty to Accommodate — Evidence methodology and limitations
 Date: 10 November 2026. This is an independent research project, not a Government of Canada publication or legal compliance assessment.
 
